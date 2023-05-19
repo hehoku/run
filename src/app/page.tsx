@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 import { useCSVReader } from "react-papaparse";
 
 const styles = {
@@ -30,12 +30,13 @@ const styles = {
 
 function CSVReader() {
   const { CSVReader } = useCSVReader();
+  const [records, setRecords] = useState([]);
 
   return (
     <CSVReader
-      onUploadAccepted={(results: any) => {
+      onUploadAccepted={(results: []) => {
         console.log("---------------------------");
-        console.log(results);
+        setRecords(results);
         console.log("---------------------------");
       }}
     >
@@ -47,17 +48,50 @@ function CSVReader() {
       }: any) => (
         <>
           <div style={styles.csvReader}>
-            <button className="bg-blue-800 text-white" type="button" {...getRootProps()} style={styles.browseFile}>
+            <button
+              className="bg-blue-800 text-white"
+              type="button"
+              {...getRootProps()}
+              style={styles.browseFile}
+            >
               Upload file
             </button>
             <div style={styles.acceptedFile}>
               {acceptedFile && acceptedFile.name}
             </div>
-            <button className="bg-red-500 text-white" {...getRemoveFileProps()} style={styles.remove}>
+            <button
+              className="bg-red-500 text-white"
+              {...getRemoveFileProps()}
+              style={styles.remove}
+            >
               Remove
             </button>
           </div>
           <ProgressBar style={styles.progressBarBackgroundColor} />
+          <div>
+            <table>
+              {/* <thead>
+                <tr>
+                  <th>Start Time</th>
+                  <th>Sport Time</th>
+                  <th>Distance</th>
+                  <th>AvaPace</th>
+                  <th>Calories</th>
+                </tr>
+              </thead> */}
+              <tbody>
+                {records?.data?.map((record: [], index: number) => (
+                  <tr key={index}>
+                    <td>{record[1]}</td>
+                    <td>{record[2]}</td>
+                    <td>{record[5]}</td>
+                    <td>{record[6]}</td>
+                    <td>{record[7]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
     </CSVReader>
@@ -66,7 +100,7 @@ function CSVReader() {
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen  items-center p-24">
+    <main className="flex min-h-screen flex-col items-center p-24">
       <h2 className="mb-12 text-2xl font-bold">Run</h2>
       <div className="w-3/5">
         <CSVReader />
