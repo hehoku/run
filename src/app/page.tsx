@@ -24,7 +24,7 @@ const styles = {
     padding: "0 20px",
   } as CSSProperties,
   progressBarBackgroundColor: {
-    backgroundColor: "red",
+    backgroundColor: "#87ceeb",
   } as CSSProperties,
 };
 
