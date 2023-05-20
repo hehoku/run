@@ -11,16 +11,16 @@ function dateStringFormat(dateString: string) {
     timeZone: "Asia/Shanghai",
   });
 
-  return formattedDateTime
+  return formattedDateTime;
 }
 
 function secondsToMs(seconds: number) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
 
-  const formattedTime = `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+  const formattedTime = `${minutes
     .toString()
-    .padStart(2, "0")}`;
+    .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
 
   return formattedTime;
 }
@@ -35,7 +35,9 @@ function secondsPerMeterToMsPerKM(secondsPerMeter: number) {
   const minutes = Math.floor(totalSeconds / secondsPerMinute);
   const seconds = totalSeconds % secondsPerMinute;
 
-  const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}/km`;
+  const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}/km`;
 
   return formattedTime;
 }
