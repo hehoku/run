@@ -3,6 +3,8 @@
 import { CSSProperties, useState } from "react";
 import { useCSVReader } from "react-papaparse";
 
+import { dateStringFormat, secondsPerMeterToMsPerKM, secondsToMs } from "../utils/dateTimeTool";
+
 const styles = {
   csvReader: {
     display: "flex",
@@ -28,9 +30,10 @@ const styles = {
   } as CSSProperties,
 };
 
+
 function CSVReader() {
   const { CSVReader } = useCSVReader();
-  const [records, setRecords] = useState([]);
+  const [records, setRecords] = useState<any>([]);
 
   return (
     <CSVReader
@@ -68,24 +71,24 @@ function CSVReader() {
             </button>
           </div>
           <ProgressBar style={styles.progressBarBackgroundColor} />
-          <div>
-            <table>
-              {/* <thead>
+          <div className="mt-10">
+            <table className="text-center">
+              <thead className="mb-10">
                 <tr>
                   <th>Start Time</th>
                   <th>Sport Time</th>
-                  <th>Distance</th>
+                  <th>Distance(km)</th>
                   <th>AvaPace</th>
                   <th>Calories</th>
                 </tr>
-              </thead> */}
+              </thead>
               <tbody>
-                {records?.data?.map((record: [], index: number) => (
+                {records?.data?.slice(1, -1).map((record: any, index: number) => (
                   <tr key={index}>
-                    <td>{record[1]}</td>
-                    <td>{record[2]}</td>
-                    <td>{record[5]}</td>
-                    <td>{record[6]}</td>
+                    <td>{dateStringFormat(record[1])}</td>
+                    <td>{secondsToMs(record[2])}</td>
+                    <td>{(record[5] / 1000).toFixed(2)}</td>
+                    <td>{secondsPerMeterToMsPerKM(record[6])}</td>
                     <td>{record[7]}</td>
                   </tr>
                 ))}
