@@ -89,7 +89,7 @@ function CSVReader() {
                 {records?.data
                   ?.slice(1, -1)
                   .map((record: any, index: number) => (
-                    <tr key={index}>
+                    <tr className="hover:bg-slate-300 cursor-pointer" key={index}>
                       <td>{dateStringFormat(record[1])}</td>
                       <td>{secondsToMs(record[2])}</td>
                       <td>{(record[5] / 1000).toFixed(2)}</td>
